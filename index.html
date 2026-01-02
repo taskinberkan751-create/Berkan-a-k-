@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>Aşık Berkan</title>
+
+<style>
+body{
+  margin:0;
+  height:100vh;
+  background:linear-gradient(135deg,#ff758c,#ff7eb3);
+  font-family:Georgia,serif;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+}
+
+.hidden{display:none}
+
+/* GİRİŞ */
+.login{
+  background:white;
+  padding:26px;
+  border-radius:18px;
+  text-align:center;
+}
+.login input{
+  padding:10px;
+  width:100%;
+  border-radius:12px;
+  border:1px solid #ccc;
+  margin-bottom:10px;
+}
+.login button{
+  padding:10px 22px;
+  border:none;
+  border-radius:20px;
+  background:#e63946;
+  color:white;
+  font-size:16px;
+}
+
+/* ANA */
+.container{text-align:center}
+h1{color:white}
+
+.envelope{
+  width:320px;
+  height:220px;
+  background:#e63946;
+  border-radius:18px;
+  position:relative;
+  cursor:pointer;
+}
+.envelope::before{
+  content:"💌";
+  font-size:42px;
+  position:absolute;
+  top:80px;
+  left:140px;
+}
+
+.letter{
+  width:280px;
+  background:white;
+  border-radius:14px;
+  padding:20px;
+  position:absolute;
+  left:20px;
+  bottom:-360px;
+  transition:1s;
+}
+.letter.open{bottom:20px}
+
+#text{
+  font-size:18px;
+  transition:.5s;
+}
+
+.buttons{
+  margin-top:15px;
+}
+.buttons button{
+  padding:8px 16px;
+  border:none;
+  border-radius:20px;
+  margin:5px;
+  font-size:15px;
+}
+.yes{background:#ff4d6d;color:white}
+.no{background:#555;color:white}
+
+/* FULL EKRAN AŞK */
+.full{
+  position:fixed;
+  top:0;left:0;
+  width:100vw;height:100vh;
+  background:#ff4d6d;
+  color:white;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  font-size:40px;
+  z-index:999;
+}
+
+/* KALP */
+.heart{
+  position:absolute;
+  font-size:24px;
+  animation:float 5s linear infinite;
+}
+@keyframes float{
+  from{transform:translateY(100vh)}
+  to{transform:translateY(-10vh)}
+}
+</style>
+</head>
+
+<body>
+
+<div class="login" id="login">
+  <h3>🔒 Bu mektup sana özel</h3>
+  <input type="password" id="password" placeholder="Şifre">
+  <button onclick="check()">Giriş</button>
+</div>
+
+<div class="container hidden" id="site">
+  <h1>💖 Aşık Berkan</h1>
+
+  <div class="envelope" onclick="openLetter()">
+    <div class="letter" id="letter">
+      <p id="text">
+        Küstüğünü biliyorum…<br>
+        Haklısın belki.<br><br>
+        Ama seni üzmek hiç niyetim değildi.<br>
+        Bir şans verir misin bana? ❤️
+      </p>
+
+      <div class="buttons">
+        <button class="yes" onclick="yes()">EVET AŞKIM</button>
+        <button class="no" onclick="no()">SG</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const pass="1234";
+let size=18;
+
+function check(){
+  if(password.value===pass){
+    login.classList.add("hidden");
+    site.classList.remove("hidden");
+  }
+}
+
+function openLetter(){
+  letter.classList.toggle("open");
+}
+
+function yes(){
+  size+=8;
+  text.style.fontSize=size+"px";
+
+  heart();
+  if(size>40){
+    document.body.innerHTML=
+    '<div class="full">AFETİM 💖<br>Büyüsün biraz daha mı? 😍</div>';
+  }
+}
+
+function no(){
+  event.target.style.position="absolute";
+  event.target.style.left=Math.random()*80+"%";
+  event.target.style.top=Math.random()*80+"%";
+}
+
+function heart(){
+  const h=document.createElement("div");
+  h.className="heart";
+  h.innerHTML="❤️";
+  h.style.left=Math.random()*100+"vw";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),5000);
+}
+</script>
+
+</body>
+</html>
